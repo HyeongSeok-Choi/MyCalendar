@@ -1,0 +1,42 @@
+<script>
+$(document).ready(function (){
+
+$(function () {
+var request = $.ajax({
+url: "/calendar", // 변경하기
+method: "GET",
+dataType: "json"
+});
+request.done(function (data) {
+console.log(data); // log 로 데이터 찍어주기.
+var calendarEl = document.getElementById('calendar');
+calendar = new FullCalendar.Calendar(calendarEl, {
+initialDate: '2022-02-07',
+initialView: 'timeGridWeek',
+headerToolbar: {
+left: 'prev,next today',
+center: 'title',
+right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+},
+navLinks: true,
+editable: true,
+selectable: true,
+droppable: true, // this allows things to be dropped onto the calendar
+
+// eventAdd: function () { // 이벤트가 추가되면 발생하는 이벤트
+//     // console.log()
+// },
+
+// eventRemove: function (obj) { // 이벤트가 삭제되면 발생하는 이벤트
+//
+// },
+events: data
+});
+calendar.render();
+});
+
+});
+
+});
+
+</script>
